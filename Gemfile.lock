@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cassandra-driver (2.1.3)
+      ione (~> 1.2)
+    ione (1.2.0)
+    kafka-rb (0.0.15)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cassandra-driver
+  kafka-rb
