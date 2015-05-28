@@ -8,6 +8,6 @@ consumer = Poseidon::PartitionConsumer.new("consumer", host, port,
 loop do
   messages = consumer.fetch
   messages.each do |m|
-    m.value
+    puts m.value
   end
 end
