@@ -1,11 +1,10 @@
-require 'kafka'
+require 'poseidon'
 require 'json'
 
-host, port = JSON.parse(ENV['KAFKA_URL'])['zk'].split(":")
-producer = Kafka::Producer.new(host: host, port: port)
+url = JSON.parse(ENV['KAFKA_URL'])['kafka']
+producer = Poseidon::Producer.new([url], 'producer')
 
 1000.times do |i|
-  puts i
-  message = Kafka::Message.new("message #{i}")
-  producer.push(message)
+  message = Poseidon::MessageToSend.new("demoday", "Message #{i}")
+  producer.send_messages([message])
 end

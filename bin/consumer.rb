@@ -1,11 +1,13 @@
-require 'kafka'
+require 'poseidon'
 require 'json'
 
-host, port = JSON.parse(ENV['KAFKA_URL'])['zk'].split(":")
+host, port = JSON.parse(ENV["KAFKA_URL"])["kafka"].split(":")
+consumer = Poseidon::PartitionConsumer.new("consumer", host, port,
+                                            "demoday", 0, :earliest_offset)
 
-consumer = Kafka::Consumer.new(host: host, port: port, topic: 'demoday')
-puts consumer.consume.inspect
-puts consumer.fetch_latest_offset
-consumer.loop do |messages|
-  puts "Received: #{messages}"
+loop do
+  messages = consumer.fetch
+  messages.each do |m|
+    m.value
+  end
 end
